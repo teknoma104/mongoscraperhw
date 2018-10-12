@@ -64,21 +64,22 @@ app.get("/scrape", function (req, res) {
         // });
 
         $("p.title").each(function (i, element) {
+            console.log("Scrape #" + i);
             // Save an empty result object
             var result = {};
 
             // Save the text of the element in a "title" variable
-            result.title = $(element).text();
+            result.title = $(element).children("a").text();
 
             // In the currently selected element, look at its child elements (i.e., its a-tags),
             // then save the values for any "href" attributes that the child elements may have
-            result.link = $(element).children().attr("href");
+            result.link = $(element).children("a").attr("href");
 
-            console.log("testing title variable:   " + title);
-            console.log("testing link variable:    " + link);
+            console.log("testing title variable:   " + result.title);
+            console.log("testing link variable:    " + result.link);
 
             // Create a new Article using the `result` object built from scraping
-            db.Article.create(results)
+            db.Article.create(result)
                 .then(function (dbArticle) {
                     // View the added result in the console
                     console.log(dbArticle);
