@@ -1,5 +1,13 @@
 // Grab the articles as a json
 $.getJSON("/articles", function (data) {
+
+    if (data.length === 0) {
+        $("#title").text("No articles found, hit that scrape route.");
+    }
+    else {
+        $("#title").text("Behold! Found scraped Monster Hunter reddit threads!");
+    }
+
     // For each one
     for (var i = 0; i < data.length; i++) {
         // Display the apropos information on the page
