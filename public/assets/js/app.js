@@ -15,6 +15,17 @@ $.getJSON("/articles", function (data) {
     }
 });
 
+// Scrape button onclick function
+$("#scrape").on("click", function() {
+    $.ajax({
+        method: "GET",
+        url: "/scrape",
+    }).done(function(data) {
+        console.log(data)
+        window.location = "/"
+    })
+});
+
 // Article Save button onclick function
 $(".save").on("click", function() {
     console.log("article save button clicked");
