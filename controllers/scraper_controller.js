@@ -102,8 +102,6 @@ module.exports = function (app) {
                     });
             });
 
-
-
             // If we were able to successfully scrape and save an Article, send a message to the client
             res.send("Scrape Complete");
         });
@@ -149,6 +147,33 @@ module.exports = function (app) {
                 // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
                 return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
             })
+            .then(function (dbArticle) {
+                // If we were able to successfully update an Article, send it back to the client
+                res.json(dbArticle);
+            })
+            .catch(function (err) {
+                // If an error occurred, send it to the client
+                res.json(err);
+            });
+    });
+
+    // Route to get all articles with saved flag boolean true
+    app.get("/saved", function (req, res) {
+        db.Article.find({ "saved": true }).populate("notes")
+            .then(function (articles) {
+                var hbsObject = {
+                    article: articles
+                };
+                res.render("saved", hbsObject);
+            });
+    });
+
+
+    // Route for updating article saved attribute
+    app.post("/articles/save/:id", function (req, res) {
+        // Use the article id to find and update its saved boolean
+        db.Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": true })
+            // Execute the above query
             .then(function (dbArticle) {
                 // If we were able to successfully update an Article, send it back to the client
                 res.json(dbArticle);

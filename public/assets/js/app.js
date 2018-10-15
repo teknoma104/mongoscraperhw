@@ -15,6 +15,18 @@ $.getJSON("/articles", function (data) {
     }
 });
 
+// Article Save button onclick function
+$(".save").on("click", function() {
+    console.log("article save button clicked");
+    var savedId = $(this).attr("data-id");
+    $.ajax({
+        method: "POST",
+        url: "/articles/save/" + savedId
+    }).done(function(data) {
+        window.location = "/"
+    })
+});
+
 
 // Whenever someone clicks a p tag
 $(document).on("click", "p", function () {
