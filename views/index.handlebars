@@ -1,0 +1,44 @@
+<div class="row">
+
+    <div class="col-lg-12">
+        {{#each article}}
+        <div class="card flex-row flex-wrap" id="mh-articles">
+            <div class="card-header border-0 p-0">
+                <img class="my-auto" src="{{this.preview}}" style="height: 52px;">
+                {{!-- <img src="{{this.preview}}" style="width: 85%; height: 85%;"> --}}
+            </div>
+            <div class="card-body px-1">
+                <h5 class="card-title">{{this.title}}</h5>
+                <p> {{this.summary}}</p>
+                <a href={{this.link}} target="_blank">{{this.link}}</a>
+                {{!-- <br><br> --}}
+                <div class="w-100"></div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-success save" data-id={{this._id}}>Save Article</button>
+
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        {{!-- <ul>
+            <h2>Here's the burger menu!</h2>
+            {{#each burgers}}
+            {{#unless devoured}}
+            #{{id}}: {{burger_name}} {{> burgers/burger-block devoured=true}}
+            {{/unless}}
+            {{/each}}
+        </ul> --}}
+
+    </div>
+    {{!-- <div class="col-lg-6">
+        <h2>Burgers that got devoured!</h2>
+
+        <ul>
+            {{#each burgers}}
+            {{#if devoured}}
+            #{{id}}: {{burger_name}} {{> burgers/burger-block devoured=false}}
+            {{/if}}
+            {{/each}}
+        </ul>
+    </div> --}}
+</div>
