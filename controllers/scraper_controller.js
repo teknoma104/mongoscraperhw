@@ -184,4 +184,28 @@ module.exports = function (app) {
             });
     });
 
+
+    // // Create a new note
+    // app.post("/notes/save/:id", function (req, res) {
+    //     // Create a new note and pass the req.body to the entry
+    //     var newNote = new Note({
+    //         body: req.body.text,
+    //         article: req.params.id
+    //     });
+    //     console.log(req.body)
+    //     // And save the new note the db
+    //     newNote.save(function (note) {
+    //         // Use the article id to find and update it's notes
+    //         db.Article.findOneAndUpdate({ "_id": req.params.id }, { $push: { "notes": note } })
+    //             .then(function (err) {
+    //                 res.send(note);
+
+    //             })
+    //             .catch(function (err) {
+    //                 // If an error occurred, send it to the client
+    //                 res.json(err);
+    //             });;
+    //     });
+    // });
+
 }

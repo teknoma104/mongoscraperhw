@@ -2,7 +2,7 @@
 
     <div class="col-lg-12">
         {{#each article}}
-        <div class="card flex-row flex-wrap" id="mh-articles">
+        <div class="card flex-row flex-wrap" data-id="{{this._id}}" id="mh-articles">
             <div class="card-header border-0 p-0">
                 <img class="my-auto" src="{{this.preview}}" style="height: 52px;">
             </div>

@@ -29,7 +29,7 @@ body {
   background-image: url("../img/bannerbackground.png");
 }
 
-#mh-articles {
+.mh-articles {
   margin-bottom: 15px;
 }
 

@@ -1,23 +1,23 @@
 <div class="row">
     <div class="col-md-12 text-center">
-        <h1>Your Saved Articles</h1>
+        <h1>Your Saved Threads</h1>
     </div>
 </div>
 <div class="row">
     <div class="col-lg-12">
         {{#each article}}
-        <div class="card flex-row flex-wrap" id="mh-articles">
+        <div class="card flex-row flex-wrap mh-articles" data-id="{{this._id}}" id="mh-thread-{{this._id}}">
             <div class="card-header border-0 p-0">
                 <img class="my-auto" src="{{this.preview}}" style="height: 52px;">
             </div>
             <div class="card-body px-1">
                 <h5 class="card-title">{{this.title}}</h5>
-                <p> {{this.summary}}</p>
                 <a href={{this.link}} target="_blank">{{this.link}}</a>
                 {{!-- <br><br> --}}
                 <div class="w-100"></div>
                 <div class="card-footer">
-                    <button type="button" class="btn btn-primary save" data-id={{this._id}}>Save Article</button>
+                    {{!-- <button type="button" class="btn btn-primary save" data-id={{this._id}}>Save Article</button> --}}
+                    <button type="button" class="btn btn-dark addNote" data-toggle="modal" data-target="#noteModal-{{this._id}}" data-id={{this._id}}>Add a Comment</button>
 
                 </div>
             </div>
@@ -27,3 +27,7 @@
     </div>
 
 </div>
+
+{{#each article}}
+    {{> notes }}
+{{/each}}
