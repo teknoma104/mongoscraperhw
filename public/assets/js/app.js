@@ -38,6 +38,17 @@ $(".save").on("click", function() {
     })
 });
 
+// Remove Saved Article onclick function
+$(".removeArticle").on("click", function() {
+    var savedId = $(this).attr("data-id");
+    $.ajax({
+        method: "POST",
+        url: "/articles/remove/" + savedId
+    }).done(function(data) {
+        window.location = "/saved"
+    })
+});
+
 
 // Whenever someone clicks a p tag
 // $(document).on("click", "#mh-articles", function () {
@@ -79,16 +90,18 @@ $(".save").on("click", function() {
 //Handle Save Note button
 $(".saveComment").on("click", function() {
     console.log("saveComment button clicked");
+    
     var thisId = $(this).attr("data-id");
     console.log("thiID:  " + thisId);
+    
     if (!$("#noteText" + thisId).val()) {
-        alert("Blank comments are not allowed, please type in some")
+        alert("Blank comments are not allowed, please type in something")
     }else {
       $.ajax({
             method: "POST",
             url: "/articles/" + thisId,
             data: {
-              text: $("#noteText" + thisId).val()
+              body: $("#noteText" + thisId).val()
             }
           }).done(function(data) {
               // Log the response
@@ -102,43 +115,49 @@ $(".saveComment").on("click", function() {
 });
 
 
-// When you click the savenote button
-$(document).on("click", "#savenote", function () {
-    // Grab the id associated with the article from the submit button
-    var thisId = $(this).attr("data-id");
+// $(".addNote").on("click", function() {
+//     console.log("add comment button clicked");
+//     var thisId = $(this).attr("data-id");
+//     console.log("thiID:  " + thisId);
+// });
 
-    // Run a POST request to change the note, using what's entered in the inputs
-    $.ajax({
-        method: "POST",
-        url: "/articles/" + thisId,
-        data: {
-            // Value taken from title input
-            title: $("#titleinput").val(),
-            // Value taken from note textarea
-            body: $("#bodyinput").val()
-        }
-    })
-        // With that done
-        .then(function (data) {
-            // Log the response
-            console.log(data);
-            // Empty the notes section
-            $("#notes").empty();
-        });
+// // When you click the savenote button
+// $(document).on("click", "#savenote", function () {
+//     // Grab the id associated with the article from the submit button
+//     var thisId = $(this).attr("data-id");
 
-    // Also, remove the values entered in the input and textarea for note entry
-    $("#titleinput").val("");
-    $("#bodyinput").val("");
-});
+//     // Run a POST request to change the note, using what's entered in the inputs
+//     $.ajax({
+//         method: "POST",
+//         url: "/articles/" + thisId,
+//         data: {
+//             // Value taken from title input
+//             title: $("#titleinput").val(),
+//             // Value taken from note textarea
+//             body: $("#bodyinput").val()
+//         }
+//     })
+//         // With that done
+//         .then(function (data) {
+//             // Log the response
+//             console.log(data);
+//             // Empty the notes section
+//             $("#notes").empty();
+//         });
+
+//     // Also, remove the values entered in the input and textarea for note entry
+//     $("#titleinput").val("");
+//     $("#bodyinput").val("");
+// });
 
 
-$(".modalNote").on('show.bs.modal', function (event) {
-    console.log("modal note popup");
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    var recipient = button.data('whatever') // Extract info from data-* attributes
-    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-    var modal = $(this)
-    modal.find('.modal-title').text('New message to ' + recipient)
-    modal.find('.modal-body input').val(recipient)
-  })
+// $(".modalNote").on('show.bs.modal', function (event) {
+//     console.log("modal note popup");
+//     var button = $(event.relatedTarget) // Button that triggered the modal
+//     var recipient = button.data('whatever') // Extract info from data-* attributes
+//     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+//     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+//     var modal = $(this)
+//     modal.find('.modal-title').text('New message to ' + recipient)
+//     modal.find('.modal-body input').val(recipient)
+//   })

@@ -16,20 +16,22 @@ var ArticleSchema = new Schema({
         type: String,
         required: true
     },
+    // `preview` is not required and of type String (this is for the picture preview url)
     preview: {
         type: String
     },
+    // `saved` is not required and of type Boolean (this is to save scraped reddit threads)
     saved: {
         type: Boolean,
         default: false
     },
-    // `note` is an object that stores a Note id
+    // `note` is an array of note objects that stores a Note id
     // The ref property links the ObjectId to the Note model
-    // This allows us to populate the Article with an associated Note
-    note: {
+    // This allows us to populate the Article with the associated Notes
+    notes: [{
         type: Schema.Types.ObjectId,
         ref: "Note"
-    }
+    }]
 });
 
 // This creates our model from the above schema, using mongoose's model method

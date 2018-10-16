@@ -46,3 +46,8 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.otherNotes {
+  display: inline-block;
+  width: 90%
+}
