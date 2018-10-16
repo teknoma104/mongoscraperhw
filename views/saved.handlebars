@@ -5,6 +5,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
+        {{#if article}}
         {{#each article}}
         <div class="card flex-row flex-wrap mh-articles" data-id="{{this._id}}" id="mh-thread-{{this._id}}">
             <div class="card-header border-0 p-0">
@@ -16,17 +17,25 @@
                 {{!-- <br><br> --}}
                 <div class="w-100"></div>
                 <div class="card-footer">
-                    <button type="button" class="btn btn-dark addNote" data-toggle="modal" data-target="#noteModal{{this._id}}" data-id={{this._id}}>Add a Comment</button>
+                    <button type="button" class="btn btn-dark addNote" data-toggle="modal" data-target="#noteModal{{this._id}}"
+                        data-id={{this._id}}>Add a Comment</button>
                     <button type="button" class="btn btn-danger removeArticle" data-id={{this._id}}>Remove Saved Thread</button>
                 </div>
             </div>
         </div>
         {{/each}}
+        {{else}}
+        <div class="card">
+            <div class="card-body">
+                <h5>No saved Monster Hunter reddit threads found! Go back to the home page and save some reddit threads via Save Button.</h5>
+            </div>
+        </div>
+        {{/if}}
 
     </div>
 
 </div>
 
 {{#each article}}
-    {{> notes }}
+{{> notes }}
 {{/each}}

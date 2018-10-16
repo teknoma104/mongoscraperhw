@@ -137,7 +137,7 @@ module.exports = function (app) {
             });
     });
 
-    // Route for saving/updating an Article's associated Note
+    // Route for saving an Article's associated Note
     app.post("/articles/:id", function (req, res) {
         console.log("attempting to save comment");
         console.log("testing req.body");
@@ -172,6 +172,40 @@ module.exports = function (app) {
                 res.json(err);
             });
     });
+
+    // Delete a note
+    app.delete("/notes/delete/", function (req, res) {
+        console.log("Delete Comment route hit");
+
+        console.log("testing req.body");
+        console.log(req.body);
+
+        const note_ID = req.body.note_ID;
+        const article_ID = req.body.article_ID;
+
+        // Use the note id to find and delete it
+        db.Note.findOneAndRemove({ "_id": note_ID }, function (err) {
+            // Log any errors
+            if (err) {
+                console.log(err);
+                res.send(err);
+            }
+            else {
+                db.Article.findOneAndUpdate({ "_id": article_ID }, { $pull: { "notes": req.params.note_id } })
+                    // Execute the above query
+                    .then(function (dbArticle) {
+                        // If we were able to successfully update an Article, send it back to the client
+                        res.send("Comment deleted!");
+                    })
+                    .catch(function (err) {
+                        // If an error occurred, send it to the client
+                        res.json(err);
+                    });
+            }
+        });
+    });
+
+
 
     // Route to get all articles with saved flag boolean true
     app.get("/saved", function (req, res) {
@@ -215,6 +249,9 @@ module.exports = function (app) {
                 res.json(err);
             });
     });
+
+
+
 
 
 }

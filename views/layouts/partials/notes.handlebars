@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="noteModalLabel">New Note - {{this.title}}</h5>
+                <h5 class="modal-title" id="noteModalLabel">Comment Section - {{this.title}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -12,7 +12,7 @@
                 <div class="card">
                     <div class="card-body">
                         <p class="otherNotes"> {{this.body}}</p>
-                        <button type="button" class="btn btn-danger deleteNote" data-note-id={{this._id}}
+                        <button type="button" class="btn btn-danger deleteComment" data-id={{this._id}}
                             data-article-id={{this.article}}>X</button>
                     </div>
                 </div>
