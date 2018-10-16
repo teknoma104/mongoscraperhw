@@ -24,7 +24,7 @@ module.exports = function (app) {
 
     // Routes
 
-    // A GET route for scraping the echoJS website
+    // A GET route for scraping the MHW reddit sub
     app.get("/scrape", function (req, res) {
         // First, we grab the body of the html with request
         axios.get("https://old.reddit.com/r/MonsterHunter/").then(function (response) {
@@ -33,14 +33,20 @@ module.exports = function (app) {
 
             let previewArray = [];
 
+            // Grabs the preview link
             $("a.thumbnail").each(function (i, element) {
                 console.log("Thumbnail Scrape #" + i);
                 // Save an empty result object
                 var result = {};
+
+                // Regular expression to test for preview links starting with /b
                 const previewRegExp = /^\/\/b.*$/;
 
                 result.preview = $(element).children("img").attr("src");
 
+                // Test if result.preview exists
+                // If it doesn't have a preview link, give it a default one
+                // else it does exist and needs https: added to the url
                 if (!result.preview) {
                     result.preview = "/assets/img/palicon_icon.png"
                 }
@@ -58,6 +64,7 @@ module.exports = function (app) {
             console.log(previewArray);
             console.log("\n\n");
 
+            // Grabs the title and related url link for each thread
             $("p.title").each(function (i, element) {
                 console.log("======================================================================");
                 console.log("Article Scrape #" + i);
@@ -173,7 +180,7 @@ module.exports = function (app) {
             });
     });
 
-    // Delete a note
+    // Route to delete a note
     app.delete("/notes/delete/", function (req, res) {
         console.log("Delete Comment route hit");
 
@@ -183,7 +190,7 @@ module.exports = function (app) {
         const note_ID = req.body.note_ID;
         const article_ID = req.body.article_ID;
 
-        // Use the note id to find and delete it
+        // Use note_ID to find and delete the note from Note collection
         db.Note.findOneAndRemove({ "_id": note_ID }, function (err) {
             // Log any errors
             if (err) {
