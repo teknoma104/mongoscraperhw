@@ -1,12 +1,24 @@
 // Scrape button onclick button function
 $("#scrape").on("click", function () {
+    $("#info-text").text("Please wait while the we scrape the MH reddit sub.");
     $.ajax({
         method: "GET",
         url: "/scrape",
     }).done(function (data) {
         console.log(data)
         window.location = "/"
-    })
+    });
+});
+
+
+// Delete all articles link button onclick link function
+$("#deleteall").on("click", function () {
+    $.ajax({
+        method: "DELETE",
+        url: "/deleteall",
+    }).done(function (data) {
+        window.location = "/"
+    });
 });
 
 // Article Save button onclick button function
@@ -18,7 +30,7 @@ $(".save").on("click", function () {
         url: "/articles/save/" + savedId
     }).done(function (data) {
         window.location = "/"
-    })
+    });
 });
 
 // Remove Saved Article onclick button function
@@ -29,7 +41,7 @@ $(".removeArticle").on("click", function () {
         url: "/articles/remove/" + savedId
     }).done(function (data) {
         window.location = "/saved"
-    })
+    });
 });
 
 
@@ -78,5 +90,5 @@ $(".deleteComment").on("click", function () {
         console.log(data)
         $(".modalNote").modal("hide");
         window.location = "/saved"
-    })
+    });
 });

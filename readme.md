@@ -2,7 +2,7 @@
 
 ### Overview
 
-A Mongo/Mongoose assignment where I was tasked with creating a web app that lets users view and leave comments on the latest news. Instead of scraping a news website, I decided to scraped thread links from my favorite game community on reddit, Monster Hunter World reddit sub.
+A Mongo/Mongoose assignment where I was tasked with creating a web app that lets users view and leave comments on the latest news. Instead of scraping a news website, I decided to scraped thread links from my favorite game community on reddit, Monster Hunter reddit sub.
 
 You can check the live demo deployed on Heroku in the link below:
 [Monster Hunter World Mongo Scraper](https://guarded-temple-45893.herokuapp.com/)

@@ -10,7 +10,7 @@ const cheerio = require("cheerio");
 //this will wrap and export all my routes so they have access by my server
 module.exports = function (app) {
 
-    //this renders the homePage 
+    //this renders the homepage 
     app.get("/", function (req, res) {
 
         db.Article.find({}, function (error, data) {
@@ -20,11 +20,11 @@ module.exports = function (app) {
             console.log(hbsObject);
             res.render("index", hbsObject);
         });
-    })
+    });
 
     // Routes
 
-    // A GET route for scraping the MHW reddit sub
+    // A GET route for scraping the Monster Hunter reddit sub
     app.get("/scrape", function (req, res) {
         // First, we grab the body of the html with request
         axios.get("https://old.reddit.com/r/MonsterHunter/").then(function (response) {
@@ -128,6 +128,18 @@ module.exports = function (app) {
             });
     });
 
+    // Route to delete all scraped articles from database
+    app.delete("/deleteall", function (req, res) {
+        db.Article.remove({}, function (err, response) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.json(response);
+            }
+        });
+    });
+
     // Route for grabbing a specific Article by id, populate it with it's note
     app.get("/articles/:id", function (req, res) {
         // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
@@ -160,7 +172,7 @@ module.exports = function (app) {
         console.log("testing newNote");
         console.log(newNote);
 
-        // Create a new note and pass the req.body to the entry
+        // Create a new note and pass newNote var to the entry
         db.Note.create(newNote)
             .then(function (dbNote) {
                 console.log("testing dbNote");
@@ -180,7 +192,7 @@ module.exports = function (app) {
             });
     });
 
-    // Route to delete a note
+    // Route to delete a specific note
     app.delete("/notes/delete/", function (req, res) {
         console.log("Delete Comment route hit");
 
@@ -211,7 +223,6 @@ module.exports = function (app) {
             }
         });
     });
-
 
 
     // Route to get all articles with saved flag boolean true
